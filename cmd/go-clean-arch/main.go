@@ -1,16 +1,23 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
+	"github.com/MateusSilvaFreitas/go-clean-arch/internal/infra/dependencies"
+	"github.com/MateusSilvaFreitas/go-clean-arch/internal/infra/router"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "pong"})
-	})
+	appDependencies, err := dependencies.NewAppDependencies()
 
-	r.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r := gin.Default()
+
+	router.CreateRouter(appDependencies, r)
+
+	r.Run(":8080")
 }
