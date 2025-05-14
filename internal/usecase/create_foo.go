@@ -55,6 +55,7 @@ func (c *createFooUseCaseImpl) Execute(input dto.CreateFooInputDTO) (dto.FooOutp
 	}
 
 	return dto.FooOutput{
+		ID:        fmt.Sprintf("%d", savedFoo.ID),
 		Name:      savedFoo.Name,
 		Type:      savedFoo.Type,
 		CreatedAt: savedFoo.CreatedAt,
